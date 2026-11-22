@@ -1,0 +1,31 @@
+{
+  "name": "my-skills-library",
+  "version": "1.0.0",
+  "description": "My front-end skills library as an MCP server: list, search and fetch skills from any MCP-capable agent.",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "my-skills-library": "server.js"
+  },
+  "files": [
+    "server.js",
+    "skills",
+    "skills.json",
+    "INDEX.md"
+  ],
+  "scripts": {
+    "start": "node server.js",
+    "index": "node scripts/build-index.mjs",
+    "build": "esbuild src/server.js --bundle --platform=node --format=esm --outfile=server.js --banner:js=\"#!/usr/bin/env node\nimport { createRequire } from 'module'; const require = createRequire(import.meta.url);\""
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0",
+    "esbuild": "^0.28.2"
+  }
+}

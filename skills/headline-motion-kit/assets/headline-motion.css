@@ -1,0 +1,19 @@
+/* headline-motion.css: styles for headline-motion.js. Set the font on .mega (a heavy sans works best). */
+.mega { margin: 0; font-weight: 800; line-height: .9; letter-spacing: -.035em; text-transform: uppercase; hyphens: none; }
+.mega__line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }   /* the mask */
+.mega__in { display: inline-block; white-space: nowrap; will-change: transform; }
+.mega__ch { display: inline-block; white-space: pre; will-change: transform; }
+.mega__strike { position: relative; display: inline-block; }
+.strike { position: absolute; left: -.02em; right: -.02em; top: 54%; height: .07em; background: currentColor; transform-origin: left center; transform: scaleX(0); }
+
+/* page wipe */
+.wipe { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #0b0b0d; color: #fff; transform: translateY(100%); }
+.wipe[hidden] { display: none; }
+.wipe__label { font-weight: 800; font-size: clamp(3rem, 12vw, 10rem); line-height: 1; letter-spacing: -.04em; text-transform: uppercase; }
+
+/* limit form output */
+.limit-chip { display: inline-block; margin: .75rem 0 .25rem; padding: .5rem 1rem; border: 1px solid currentColor; border-radius: 999px; }
+.limit-chip span { position: relative; display: inline-block; }
+.limit-msg { margin: .25rem 0 0; }
+
+@media (prefers-reduced-motion: reduce) { .wipe { display: none !important; } }

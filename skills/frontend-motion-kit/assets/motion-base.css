@@ -1,0 +1,69 @@
+/* motion-base.css
+   Drop into any front-end project. Provides easing and duration tokens,
+   a scroll-reveal utility and a global reduced-motion guard. */
+
+:root {
+  /* easing */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* durations */
+  --dur-micro: 180ms;   /* hover, focus, press */
+  --dur-ui: 320ms;      /* menus, toggles, state changes */
+  --dur-reveal: 700ms;  /* section or element reveals */
+  --dur-page: 600ms;    /* page transitions (keep under ~1s) */
+}
+
+/* Generic helpers */
+.t-micro { transition-duration: var(--dur-micro); transition-timing-function: var(--ease-out); }
+.t-ui    { transition-duration: var(--dur-ui);    transition-timing-function: var(--ease-out); }
+
+/* Scroll reveal: use sparingly (key elements only, not every section).
+   Pair with the IntersectionObserver snippet below. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+  IntersectionObserver snippet:
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+*/
+
+/* Visible keyboard focus */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Reduced motion: turn off non-essential movement everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
